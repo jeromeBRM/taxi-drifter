@@ -1,0 +1,3 @@
+C:/Users/jerom/Desktop/drifter/CMakeFiles/Drifter.dir
+C:/Users/jerom/Desktop/drifter/CMakeFiles/edit_cache.dir
+C:/Users/jerom/Desktop/drifter/CMakeFiles/rebuild_cache.dir
