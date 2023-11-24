@@ -1,3 +1,0 @@
-"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\Drifter.dir/objects.a
-C:\mingw32\bin\ar.exe qc CMakeFiles\Drifter.dir/objects.a @CMakeFiles\Drifter.dir\objects1.rsp
-C:\mingw32\bin\g++.exe -Wl,--whole-archive CMakeFiles\Drifter.dir/objects.a -Wl,--no-whole-archive -o Drifter.exe -Wl,--out-implib,libDrifter.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\Drifter.dir\linkLibs.rsp

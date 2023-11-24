@@ -1,8 +1,8 @@
-// Libraries 
-#include "../libs/reactphysics3d/include/reactphysics3d/reactphysics3d.h" 
-#include <iostream> 
- 
-// ReactPhysics3D namespace 
+// Libraries
+#include <reactphysics3d/reactphysics3d.h>
+#include <iostream>
+
+// ReactPhysics3D namespace
 using namespace reactphysics3d; 
  
 // Main function 
@@ -37,7 +37,9 @@ int main(int argc, char** argv) {
         // Display the position of the body 
         std::cout << "Body Position: (" << position.x << ", " << 
       position.y << ", " << position.z << ")" << std::endl; 
-    } 
+    }
+
+    _sleep(2000);
  
     return 0; 
 }

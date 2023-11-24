@@ -7,12 +7,14 @@ set(CMAKE_DEPENDS_GENERATOR "MinGW Makefiles")
 # The top level Makefile was generated from the following files:
 set(CMAKE_MAKEFILE_DEPENDS
   "CMakeCache.txt"
+  "C:/Program Files/CMake/share/cmake-3.27/Modules/BasicConfigVersion-AnyNewerVersion.cmake.in"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeCInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeCXXInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeCommonLanguageInclude.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeGenericSystem.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeInitializeConfigs.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeLanguageInformation.cmake"
+  "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakePackageConfigHelpers.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeRCInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInformation.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/CMakeSystemSpecificInitialize.cmake"
@@ -20,6 +22,7 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Compiler/GNU-CXX.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Compiler/GNU.cmake"
+  "C:/Program Files/CMake/share/cmake-3.27/Modules/GNUInstallDirs.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Platform/Windows-GNU-C.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX-ABI.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Platform/Windows-GNU-CXX.cmake"
@@ -28,11 +31,13 @@ set(CMAKE_MAKEFILE_DEPENDS
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Platform/Windows-windres.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Platform/Windows.cmake"
   "C:/Program Files/CMake/share/cmake-3.27/Modules/Platform/WindowsPaths.cmake"
+  "C:/Program Files/CMake/share/cmake-3.27/Modules/WriteBasicConfigVersionFile.cmake"
   "CMakeFiles/3.27.8/CMakeCCompiler.cmake"
   "CMakeFiles/3.27.8/CMakeCXXCompiler.cmake"
   "CMakeFiles/3.27.8/CMakeRCCompiler.cmake"
   "CMakeFiles/3.27.8/CMakeSystem.cmake"
   "CMakeLists.txt"
+  "libs/reactphysics3d/CMakeLists.txt"
   )
 
 # The corresponding makefile is:
@@ -44,9 +49,12 @@ set(CMAKE_MAKEFILE_OUTPUTS
 # Byproducts of CMake generate step:
 set(CMAKE_MAKEFILE_PRODUCTS
   "CMakeFiles/CMakeDirectoryInformation.cmake"
+  "libs/reactphysics3d/ReactPhysics3DConfigVersion.cmake"
+  "libs/reactphysics3d/CMakeFiles/CMakeDirectoryInformation.cmake"
   )
 
 # Dependency information for all targets:
 set(CMAKE_DEPEND_INFO_FILES
-  "CMakeFiles/Drifter.dir/DependInfo.cmake"
+  "CMakeFiles/TaxiDrifter.dir/DependInfo.cmake"
+  "libs/reactphysics3d/CMakeFiles/reactphysics3d.dir/DependInfo.cmake"
   )

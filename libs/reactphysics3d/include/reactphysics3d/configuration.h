@@ -34,6 +34,7 @@
 #include <string>
 #include <reactphysics3d/decimal.h>
 #include <reactphysics3d/containers/Pair.h>
+#include <cstdint>
 
 // Compilers
 #if defined(_MSC_VER)

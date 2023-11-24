@@ -56,10 +56,10 @@ RM = "C:\Program Files\CMake\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = C:\Users\jerom\Desktop\drifter
+CMAKE_SOURCE_DIR = C:\Users\jerom\Documents\GitHub\taxi-drifter
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = C:\Users\jerom\Desktop\drifter
+CMAKE_BINARY_DIR = C:\Users\jerom\Documents\GitHub\taxi-drifter
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -84,11 +84,56 @@ rebuild_cache:
 rebuild_cache/fast: rebuild_cache
 .PHONY : rebuild_cache/fast
 
+# Special rule for the target list_install_components
+list_install_components:
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Available install components are: \"Unspecified\""
+.PHONY : list_install_components
+
+# Special rule for the target list_install_components
+list_install_components/fast: list_install_components
+.PHONY : list_install_components/fast
+
+# Special rule for the target install
+install: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	"C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake
+.PHONY : install
+
+# Special rule for the target install
+install/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Install the project..."
+	"C:\Program Files\CMake\bin\cmake.exe" -P cmake_install.cmake
+.PHONY : install/fast
+
+# Special rule for the target install/local
+install/local: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local
+
+# Special rule for the target install/local
+install/local/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing only the local directory..."
+	"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_LOCAL_ONLY=1 -P cmake_install.cmake
+.PHONY : install/local/fast
+
+# Special rule for the target install/strip
+install/strip: preinstall
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip
+
+# Special rule for the target install/strip
+install/strip/fast: preinstall/fast
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --cyan "Installing the project stripped..."
+	"C:\Program Files\CMake\bin\cmake.exe" -DCMAKE_INSTALL_DO_STRIP=1 -P cmake_install.cmake
+.PHONY : install/strip/fast
+
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jerom\Desktop\drifter\CMakeFiles C:\Users\jerom\Desktop\drifter\\CMakeFiles\progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jerom\Documents\GitHub\taxi-drifter\CMakeFiles C:\Users\jerom\Documents\GitHub\taxi-drifter\\CMakeFiles\progress.marks
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jerom\Desktop\drifter\CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\jerom\Documents\GitHub\taxi-drifter\CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -116,24 +161,37 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named Drifter
+# Target rules for targets named TaxiDrifter
 
 # Build rule for target.
-Drifter: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 Drifter
-.PHONY : Drifter
+TaxiDrifter: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 TaxiDrifter
+.PHONY : TaxiDrifter
 
 # fast build rule for target.
-Drifter/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Drifter.dir\build.make CMakeFiles/Drifter.dir/build
-.PHONY : Drifter/fast
+TaxiDrifter/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TaxiDrifter.dir\build.make CMakeFiles/TaxiDrifter.dir/build
+.PHONY : TaxiDrifter/fast
+
+#=============================================================================
+# Target rules for targets named reactphysics3d
+
+# Build rule for target.
+reactphysics3d: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 reactphysics3d
+.PHONY : reactphysics3d
+
+# fast build rule for target.
+reactphysics3d/fast:
+	$(MAKE) $(MAKESILENT) -f libs\reactphysics3d\CMakeFiles\reactphysics3d.dir\build.make libs/reactphysics3d/CMakeFiles/reactphysics3d.dir/build
+.PHONY : reactphysics3d/fast
 
 src/Main.obj: src/Main.cpp.obj
 .PHONY : src/Main.obj
 
 # target to build an object file
 src/Main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Drifter.dir\build.make CMakeFiles/Drifter.dir/src/Main.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TaxiDrifter.dir\build.make CMakeFiles/TaxiDrifter.dir/src/Main.cpp.obj
 .PHONY : src/Main.cpp.obj
 
 src/Main.i: src/Main.cpp.i
@@ -141,7 +199,7 @@ src/Main.i: src/Main.cpp.i
 
 # target to preprocess a source file
 src/Main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Drifter.dir\build.make CMakeFiles/Drifter.dir/src/Main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TaxiDrifter.dir\build.make CMakeFiles/TaxiDrifter.dir/src/Main.cpp.i
 .PHONY : src/Main.cpp.i
 
 src/Main.s: src/Main.cpp.s
@@ -149,7 +207,7 @@ src/Main.s: src/Main.cpp.s
 
 # target to generate assembly for a file
 src/Main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Drifter.dir\build.make CMakeFiles/Drifter.dir/src/Main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\TaxiDrifter.dir\build.make CMakeFiles/TaxiDrifter.dir/src/Main.cpp.s
 .PHONY : src/Main.cpp.s
 
 # Help Target
@@ -159,8 +217,13 @@ help:
 	@echo ... clean
 	@echo ... depend
 	@echo ... edit_cache
+	@echo ... install
+	@echo ... install/local
+	@echo ... install/strip
+	@echo ... list_install_components
 	@echo ... rebuild_cache
-	@echo ... Drifter
+	@echo ... TaxiDrifter
+	@echo ... reactphysics3d
 	@echo ... src/Main.obj
 	@echo ... src/Main.i
 	@echo ... src/Main.s
