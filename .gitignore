@@ -10,3 +10,6 @@ install_manifest.txt
 compile_commands.json
 *.cmake
 _deps
+
+#build
+build

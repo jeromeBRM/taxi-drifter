@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.8)
 
+set (CMAKE_RUNTIME_OUTPUT_DIRECTORY build)
 set(CMAKE_CXX_COMPILER "C:/mingw32/bin/g++.exe")
 set(CMAKE_C_COMPILER "C:/mingw32/bin/gcc.exe")
 
