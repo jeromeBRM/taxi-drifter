@@ -5,10 +5,13 @@ set(CMAKE_C_COMPILER "C:/mingw32/bin/gcc.exe")
 
 project(TaxiDrifter)
 
+set(SFML_STATIC_LIBRARIES TRUE)
+set(BUILD_SHARED_LIBS FALSE)
+
 add_subdirectory(libs/reactphysics3d)
 add_subdirectory(libs/sfml)
 
 add_executable(TaxiDrifter src/Main.cpp)
 
-target_link_libraries(TaxiDrifter PRIVATE reactphysics3d)
-target_link_libraries(TaxiDrifter PRIVATE sfml)
+target_link_options(TaxiDrifter PRIVATE -static-libgcc -static-libstdc++ -lpthread)
+target_link_libraries(TaxiDrifter sfml-graphics sfml-audio reactphysics3d)
