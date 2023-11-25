@@ -2,38 +2,41 @@
 #include <reactphysics3d/reactphysics3d.h>
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include <cassert>
 
-// ReactPhysics3D namespace
-using namespace reactphysics3d; 
-using namespace sf;
+int main() {
+    sf::RenderWindow sfmlWin(sf::VideoMode(600, 360), "TaxiDrifter SFML debugger");
+    sf::Font font;
 
-// Main function 
-int main()
-{
-    // create the window
-    sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
+    if (!font.loadFromFile("myfont.ttf")) {
+        return -1;
+    }
+    sf::Text message(L"\u6f22\u5b57", font);
 
-    // run the program as long as the window is open
-    while (window.isOpen())
-    {
-        // check all the window's events that were triggered since the last iteration of the loop
-        sf::Event event;
-        while (window.pollEvent(event))
-        {
-            // "close requested" event: we close the window
-            if (event.type == sf::Event::Closed)
-                window.close();
+    sf::RectangleShape rectangle(sf::Vector2f(120, 50));
+
+    int pos = 0;
+
+    while (sfmlWin.isOpen()) {
+
+        sf::Event e;
+        while (sfmlWin.pollEvent(e)) {
+
+            switch (e.type) {
+            case sf::Event::EventType::Closed:
+                sfmlWin.close();
+                break;
+            case sf::Event::MouseMoved:
+                rectangle.setPosition(e.mouseMove.x, e.mouseMove.y);
+                break;
+            }
+
         }
 
-        // clear the window with black color
-        window.clear(sf::Color::Black);
-
-        // draw everything here...
-        // window.draw(...);
-
-        // end the current frame
-        window.display();
+        sfmlWin.clear();
+        sfmlWin.draw(message);
+        sfmlWin.draw(rectangle);
+        sfmlWin.display();
     }
-
     return 0;
 }
