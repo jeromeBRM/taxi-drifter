@@ -13,5 +13,5 @@ add_subdirectory(libs/sfml)
 
 add_executable(TaxiDrifter src/Main.cpp)
 
-target_link_options(TaxiDrifter PRIVATE -static-libgcc -static-libstdc++ -lpthread)
+target_link_options(TaxiDrifter PRIVATE -static-libgcc -static-libstdc++ -Bstatic -lstdc++ -lpthread)
 target_link_libraries(TaxiDrifter sfml-graphics sfml-audio reactphysics3d)
