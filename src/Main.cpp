@@ -26,6 +26,8 @@ void runGraphics(RigidBody* body) {
     while (sfmlWin.isOpen()) {
         std::this_thread::sleep_for(std::chrono::milliseconds((int)std::floor(WINDOW_REFRESH_STEP)));
 
+        sfmlWin.clear();
+
         sf::Event e;
         while (sfmlWin.pollEvent(e)) {
 
@@ -36,11 +38,102 @@ void runGraphics(RigidBody* body) {
             }
         }
 
+        /*
+        *   up arrow
+        */
+
+        sf::RectangleShape up_arrow(sf::Vector2f(50, 50));
+        up_arrow.setPosition(200, 700);
+
+        sf::Texture up_texture;
+        if (!up_texture.loadFromFile("up.png"))
+        {
+            return;
+        }
+
+        up_arrow.setTexture(&up_texture);
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            up_arrow.setFillColor(sf::Color::Red);
+        }
+        
+        sfmlWin.draw(up_arrow);
+
+        /*
+        *   left arrow
+        */
+
+        sf::RectangleShape left_arrow(sf::Vector2f(50, 50));
+        left_arrow.setPosition(150, 750);
+
+        sf::Texture left_texture;
+        if (!left_texture.loadFromFile("left.png"))
+        {
+            return;
+        }
+
+        left_arrow.setTexture(&left_texture);
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            left_arrow.setFillColor(sf::Color::Red);
+        }
+        
+        sfmlWin.draw(left_arrow);
+
+        /*
+        *   right arrow
+        */
+
+        sf::RectangleShape right_arrow(sf::Vector2f(50, 50));
+        right_arrow.setPosition(250, 750);
+
+        sf::Texture right_texture;
+        if (!right_texture.loadFromFile("right.png"))
+        {
+            return;
+        }
+
+        right_arrow.setTexture(&right_texture);
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            right_arrow.setFillColor(sf::Color::Red);
+        }
+        
+        sfmlWin.draw(right_arrow);
+
+        /*
+        *   down arrow
+        */
+
+        sf::RectangleShape down_arrow(sf::Vector2f(50, 50));
+        down_arrow.setPosition(200, 750);
+
+        sf::Texture down_texture;
+        if (!down_texture.loadFromFile("down.png"))
+        {
+            return;
+        }
+
+        down_arrow.setTexture(&down_texture);
+
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            down_arrow.setFillColor(sf::Color::Red);
+        }
+        
+        sfmlWin.draw(down_arrow);
+
+        /*
+        *   falling box
+        */
+
         sf::RectangleShape rectangle(sf::Vector2f(50, 50));
 
-        rectangle.setPosition(200, - 100 - 70 * body->getTransform().getPosition().y);
+        rectangle.setPosition(200, 50 - 70 * body->getTransform().getPosition().y);
 
-        sfmlWin.clear();
         sfmlWin.draw(rectangle);
         sfmlWin.display();
     }
