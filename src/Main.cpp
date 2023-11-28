@@ -144,10 +144,30 @@ int main() {
 
     PhysicsWorld* world = physicsCommon.createPhysicsWorld();
 
-    Vector3 init_position(0, 20, 0);
+    Vector3 init_position(0, 0, 0);
     Quaternion init_orientation = Quaternion::identity();
     Transform init_transform(init_position, init_orientation);
     RigidBody* body = world->createRigidBody(init_transform);
+
+    Vector3 init_position_floor(0, -12.5f, 0);
+    Transform init_transform_floor(init_position_floor, init_orientation);
+    RigidBody* floor = world->createRigidBody(init_transform_floor);
+
+    const Vector3 halfExtents(2.0, 3.0, 5.0); 
+
+    SphereShape* sphereShape = physicsCommon.createSphereShape(3.0f); 
+    BoxShape* floorShape =  physicsCommon.createBoxShape(halfExtents);
+
+    // Relative transform of the collider relative to the body origin 
+    Transform transform = Transform::identity(); 
+    
+    // Add the collider to the rigid body 
+    Collider* collider;
+    Collider* floor_coll;
+    collider = body->addCollider(sphereShape, transform);
+    floor_coll = floor->addCollider(floorShape, transform);
+
+    floor->setType(BodyType::STATIC);
 
     thread physics_thread = thread(runPhysics, world);
     thread graphics_thread = thread(runGraphics, body);
