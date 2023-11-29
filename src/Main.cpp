@@ -55,6 +55,9 @@ void runGraphics(RigidBody* body) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
         {
+            Vector3 force(0.0, 100.0, 0.0); 
+            body->applyLocalForceAtCenterOfMass(force);
+
             up_arrow.setFillColor(sf::Color::Red);
         }
         
