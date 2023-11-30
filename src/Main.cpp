@@ -53,9 +53,9 @@ void runGraphics(RigidBody* body) {
 
         up_arrow.setTexture(&up_texture);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         {
-            Vector3 force(0.0, 100.0, 0.0); 
+            Vector3 force(0.0, 0.0, 100.0); 
             body->applyLocalForceAtCenterOfMass(force);
 
             up_arrow.setFillColor(sf::Color::Red);
@@ -78,8 +78,11 @@ void runGraphics(RigidBody* body) {
 
         left_arrow.setTexture(&left_texture);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
         {
+            Vector3 force(-100.0, 0.0, 0.0);
+            body->applyLocalForceAtCenterOfMass(force);
+            
             left_arrow.setFillColor(sf::Color::Red);
         }
         
@@ -100,8 +103,11 @@ void runGraphics(RigidBody* body) {
 
         right_arrow.setTexture(&right_texture);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
+            Vector3 force(100.0, 0.0, 0.0);
+            body->applyLocalForceAtCenterOfMass(force);
+
             right_arrow.setFillColor(sf::Color::Red);
         }
         
@@ -122,8 +128,11 @@ void runGraphics(RigidBody* body) {
 
         down_arrow.setTexture(&down_texture);
 
-        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
+            Vector3 force(0.0, 0.0, -100.0);
+            body->applyLocalForceAtCenterOfMass(force);
+            
             down_arrow.setFillColor(sf::Color::Red);
         }
         
@@ -133,11 +142,25 @@ void runGraphics(RigidBody* body) {
         *   falling box
         */
 
-        sf::RectangleShape rectangle(sf::Vector2f(50, 50));
+        sf::RectangleShape rectangle(sf::Vector2f(10, 10));
 
-        rectangle.setPosition(200, 50 - 70 * body->getTransform().getPosition().y);
+        rectangle.setPosition(800 + 10 * body->getTransform().getPosition().x, 450 - 10 * body->getTransform().getPosition().z);
 
         sfmlWin.draw(rectangle);
+
+        sf::Font font;
+        if (!font.loadFromFile("font.ttf")) {
+            return;
+        }
+
+        string positionString = "x: " + to_string(body->getTransform().getPosition().x) + "\n" + 
+        "y: " + to_string(body->getTransform().getPosition().y) + "\n" +
+        "z: " + to_string(body->getTransform().getPosition().z);
+
+        sf::Text message(positionString, font);
+
+        sfmlWin.draw(message);
+
         sfmlWin.display();
     }
 }
@@ -152,22 +175,23 @@ int main() {
     Transform init_transform(init_position, init_orientation);
     RigidBody* body = world->createRigidBody(init_transform);
 
-    Vector3 init_position_floor(0, -12.5f, 0);
+    Vector3 init_position_floor(0, -0.5, 0);
     Transform init_transform_floor(init_position_floor, init_orientation);
     RigidBody* floor = world->createRigidBody(init_transform_floor);
 
-    const Vector3 halfExtents(2.0, 3.0, 5.0); 
+    const Vector3 halfExtents(10.0, 1.0, 10.0); 
+    const Vector3 halfExtents2(1.0, 1.0, 1.0);
 
-    SphereShape* sphereShape = physicsCommon.createSphereShape(3.0f); 
+    BoxShape* car = physicsCommon.createBoxShape(halfExtents2); 
     BoxShape* floorShape =  physicsCommon.createBoxShape(halfExtents);
 
-    // Relative transform of the collider relative to the body origin 
-    Transform transform = Transform::identity(); 
+    // Relative transform of the collider relative to the body origin
+    Transform transform = Transform::identity();
     
-    // Add the collider to the rigid body 
+    // Add the collider to the rigid body
     Collider* collider;
     Collider* floor_coll;
-    collider = body->addCollider(sphereShape, transform);
+    collider = body->addCollider(car, transform);
     floor_coll = floor->addCollider(floorShape, transform);
 
     floor->setType(BodyType::STATIC);
