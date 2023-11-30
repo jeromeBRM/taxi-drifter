@@ -139,12 +139,23 @@ void runGraphics(RigidBody* body) {
         sfmlWin.draw(down_arrow);
 
         /*
+        *   floor
+        */
+
+        sf::RectangleShape rectanglefloor(sf::Vector2f(200, 200));
+
+        rectanglefloor.setPosition(700, 350);
+        rectanglefloor.setFillColor(sf::Color::Blue);
+
+        sfmlWin.draw(rectanglefloor);
+
+        /*
         *   falling box
         */
 
         sf::RectangleShape rectangle(sf::Vector2f(10, 10));
 
-        rectangle.setPosition(800 + 10 * body->getTransform().getPosition().x, 450 - 10 * body->getTransform().getPosition().z);
+        rectangle.setPosition(795 + 10 * body->getTransform().getPosition().x, 445 - 10 * body->getTransform().getPosition().z);
 
         sfmlWin.draw(rectangle);
 
