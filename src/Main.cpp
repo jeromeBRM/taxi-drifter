@@ -20,7 +20,7 @@ void runPhysics(PhysicsWorld* world) {
     }
 }
 
-void runGraphics(RigidBody* body) {
+void runGraphics(RigidBody* back, RigidBody* front) {
     sf::RenderWindow sfmlWin(sf::VideoMode(1600, 900), "TaxiDrifter SFML debugger");
 
     while (sfmlWin.isOpen()) {
@@ -39,6 +39,17 @@ void runGraphics(RigidBody* body) {
         }
 
         /*
+        *   floor
+        */
+
+        sf::RectangleShape rectanglefloor(sf::Vector2f(1400, 700));
+
+        rectanglefloor.setPosition(100, 100);
+        rectanglefloor.setFillColor(sf::Color::Blue);
+
+        sfmlWin.draw(rectanglefloor);
+
+        /*
         *   up arrow
         */
 
@@ -55,8 +66,8 @@ void runGraphics(RigidBody* body) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         {
-            Vector3 force(0.0, 0.0, 100.0); 
-            body->applyLocalForceAtCenterOfMass(force);
+            Vector3 force(0.0, 0.0, 50.0); 
+            back->applyLocalForceAtCenterOfMass(force);
 
             up_arrow.setFillColor(sf::Color::Red);
         }
@@ -80,8 +91,8 @@ void runGraphics(RigidBody* body) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
         {
-            Vector3 force(-100.0, 0.0, 0.0);
-            body->applyLocalForceAtCenterOfMass(force);
+            Vector3 force(-30.0, 0.0, -10.0);
+            front->applyLocalForceAtCenterOfMass(force);
             
             left_arrow.setFillColor(sf::Color::Red);
         }
@@ -105,8 +116,8 @@ void runGraphics(RigidBody* body) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-            Vector3 force(100.0, 0.0, 0.0);
-            body->applyLocalForceAtCenterOfMass(force);
+            Vector3 force(30.0, 0.0, -10.0);
+            front->applyLocalForceAtCenterOfMass(force);
 
             right_arrow.setFillColor(sf::Color::Red);
         }
@@ -130,8 +141,8 @@ void runGraphics(RigidBody* body) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::S))
         {
-            Vector3 force(0.0, 0.0, -100.0);
-            body->applyLocalForceAtCenterOfMass(force);
+            Vector3 force(0.0, 0.0, -20.0);
+            back->applyLocalForceAtCenterOfMass(force);
             
             down_arrow.setFillColor(sf::Color::Red);
         }
@@ -139,34 +150,41 @@ void runGraphics(RigidBody* body) {
         sfmlWin.draw(down_arrow);
 
         /*
-        *   floor
-        */
-
-        sf::RectangleShape rectanglefloor(sf::Vector2f(200, 200));
-
-        rectanglefloor.setPosition(700, 350);
-        rectanglefloor.setFillColor(sf::Color::Blue);
-
-        sfmlWin.draw(rectanglefloor);
-
-        /*
         *   falling box
         */
 
         sf::RectangleShape rectangle(sf::Vector2f(10, 10));
+        sf::RectangleShape rectangle2(sf::Vector2f(10, 10));
 
-        rectangle.setPosition(795 + 10 * body->getTransform().getPosition().x, 445 - 10 * body->getTransform().getPosition().z);
+        sf::Texture car_texture;
+        if (!car_texture.loadFromFile("car.jpg"))
+        {
+            return;
+        }
+        
+        rectangle.setTexture(&car_texture);
+
+        rectangle.setPosition(795 + 10 * back->getTransform().getPosition().x, 445 - 10 * back->getTransform().getPosition().z);
+        rectangle2.setPosition(795 + 10 * front->getTransform().getPosition().x, 445 - 10 * front->getTransform().getPosition().z);
+
+        float angle = 0;
+        Vector3 up(0.0, 1.0, 0.0);
+        back->getTransform().getOrientation().getRotationAngleAxis(angle, up);
+
+        //rectangle.setRotation(angle * 180);
 
         sfmlWin.draw(rectangle);
+        sfmlWin.draw(rectangle2);
 
         sf::Font font;
         if (!font.loadFromFile("font.ttf")) {
             return;
         }
 
-        string positionString = "x: " + to_string(body->getTransform().getPosition().x) + "\n" + 
-        "y: " + to_string(body->getTransform().getPosition().y) + "\n" +
-        "z: " + to_string(body->getTransform().getPosition().z);
+        string positionString = "x: " + to_string(back->getTransform().getPosition().x) + "\n" + 
+        "y: " + to_string(back->getTransform().getPosition().y) + "\n" +
+        "z: " + to_string(back->getTransform().getPosition().z) + "\n" +
+        "rot: " + to_string(angle);
 
         sf::Text message(positionString, font);
 
@@ -181,17 +199,20 @@ int main() {
 
     PhysicsWorld* world = physicsCommon.createPhysicsWorld();
 
-    Vector3 init_position(0, 0, 0);
+    Vector3 init_position(0, 0, -1);
+    Vector3 init_position2(0, 0, 1);
     Quaternion init_orientation = Quaternion::identity();
     Transform init_transform(init_position, init_orientation);
+    Transform init_transform2(init_position2, init_orientation);
     RigidBody* body = world->createRigidBody(init_transform);
+    RigidBody* body2 = world->createRigidBody(init_transform2);
 
     Vector3 init_position_floor(0, -0.5, 0);
     Transform init_transform_floor(init_position_floor, init_orientation);
     RigidBody* floor = world->createRigidBody(init_transform_floor);
 
-    const Vector3 halfExtents(10.0, 1.0, 10.0); 
-    const Vector3 halfExtents2(1.0, 1.0, 1.0);
+    const Vector3 halfExtents(70.0, 1.0, 35.0);
+    const Vector3 halfExtents2(1, 0.5, 0.5);
 
     BoxShape* car = physicsCommon.createBoxShape(halfExtents2); 
     BoxShape* floorShape =  physicsCommon.createBoxShape(halfExtents);
@@ -201,14 +222,26 @@ int main() {
     
     // Add the collider to the rigid body
     Collider* collider;
+    Collider* collider2;
     Collider* floor_coll;
     collider = body->addCollider(car, transform);
+    collider2 = body2->addCollider(car, transform);
     floor_coll = floor->addCollider(floorShape, transform);
+
+    // Anchor point in world-space 
+    Vector3 anchorPoint(0.0, 0.0, 0.0); 
+    
+    // Create the joint info object 
+    FixedJointInfo jointInfo(body, body2, anchorPoint);
+
+    // Create the fixed joint in the physics world 
+    FixedJoint* joint; 
+    joint = dynamic_cast<FixedJoint*>(world->createJoint(jointInfo));
 
     floor->setType(BodyType::STATIC);
 
     thread physics_thread = thread(runPhysics, world);
-    thread graphics_thread = thread(runGraphics, body);
+    thread graphics_thread = thread(runGraphics, body, body2);
 
     physics_thread.join();
     graphics_thread.join();
