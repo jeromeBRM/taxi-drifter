@@ -12,6 +12,15 @@ using namespace reactphysics3d;
 const decimal TIME_STEP = 1.0f / 60.0f;
 const decimal WINDOW_REFRESH_STEP = 1.0f / 144.0f * 1000;
 
+Vector3 worldToLocalVelocity(Quaternion& relativeRotation, const Vector3& relativePosition, const Vector3& worldVelocity) {
+    relativeRotation.normalize();
+    
+    Matrix3x3 relativeRotationMatrix = relativeRotation.getMatrix();
+
+    // Translate the vector to local space
+    return relativeRotationMatrix.getTranspose() * worldVelocity;
+}
+
 void runPhysics(PhysicsWorld* world) {
     while (true) {
         std::this_thread::sleep_for(std::chrono::milliseconds((int)std::floor(TIME_STEP * 1000)));
@@ -27,6 +36,18 @@ void runGraphics(RigidBody* back, RigidBody* front) {
         std::this_thread::sleep_for(std::chrono::milliseconds((int)std::floor(WINDOW_REFRESH_STEP)));
 
         sfmlWin.clear();
+
+        /*
+        *   get local velocity of front rigidbody
+        */
+
+        Quaternion copyQuaternion = front->getTransform().getOrientation();
+
+        Vector3 localSpaceVelocity = worldToLocalVelocity(copyQuaternion, front->getTransform().getPosition(), front->getLinearVelocity());
+
+        /*
+        *
+        */
 
         sf::Event e;
         while (sfmlWin.pollEvent(e)) {
@@ -66,7 +87,7 @@ void runGraphics(RigidBody* back, RigidBody* front) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
         {
-            Vector3 force(0.0, 0.0, 50.0); 
+            Vector3 force(0.0, 0.0, 70.0); 
             back->applyLocalForceAtCenterOfMass(force);
 
             up_arrow.setFillColor(sf::Color::Red);
@@ -91,8 +112,8 @@ void runGraphics(RigidBody* back, RigidBody* front) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
         {
-            Vector3 force(-30.0, 0.0, -10.0);
-            front->applyLocalForceAtCenterOfMass(force);
+            Vector3 force(-40.0, 0.0, -20.0);
+            front->applyLocalForceAtCenterOfMass(force * localSpaceVelocity.z);
             
             left_arrow.setFillColor(sf::Color::Red);
         }
@@ -116,8 +137,8 @@ void runGraphics(RigidBody* back, RigidBody* front) {
 
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
-            Vector3 force(30.0, 0.0, -10.0);
-            front->applyLocalForceAtCenterOfMass(force);
+            Vector3 force(40.0, 0.0, -20.0);
+            front->applyLocalForceAtCenterOfMass(force * localSpaceVelocity.z);
 
             right_arrow.setFillColor(sf::Color::Red);
         }
@@ -184,7 +205,7 @@ void runGraphics(RigidBody* back, RigidBody* front) {
         string positionString = "x: " + to_string(back->getTransform().getPosition().x) + "\n" + 
         "y: " + to_string(back->getTransform().getPosition().y) + "\n" +
         "z: " + to_string(back->getTransform().getPosition().z) + "\n" +
-        "rot: " + to_string(angle);
+        "rot: " + to_string(localSpaceVelocity.z);
 
         sf::Text message(positionString, font);
 
