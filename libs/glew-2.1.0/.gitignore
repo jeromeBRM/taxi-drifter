@@ -5,5 +5,5 @@ CMakeFiles
 Makefile
 
 #build
-lib
-bin
+lib/*
+bin/*
