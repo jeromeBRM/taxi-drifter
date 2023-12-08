@@ -45,6 +45,33 @@ void runPhysics(PhysicsWorld* world) {
 void runGraphics(RigidBody* back, RigidBody* front) {
     sf::RenderWindow sfmlWin(sf::VideoMode(1600, 900), "TaxiDrifter SFML debugger");
 
+    if( !glfwInit() )
+    {
+        fprintf( stderr, "Failed to initialize GLFW\n" );
+        return;
+    }
+
+    glfwWindowHint(GLFW_SAMPLES, 4); // 4x antialiasing
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3); // On veut OpenGL 3.3
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE); // Pour rendre MacOS heureux ; ne devrait pas être nécessaire
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // On ne veut pas l'ancien OpenGL
+
+    // Ouvre une fenêtre et crée son contexte OpenGl
+    GLFWwindow* window; // (Dans le code source qui accompagne, cette variable est globale)
+    window = glfwCreateWindow( 1024, 768, "Tutorial 01", NULL, NULL);
+    if( window == NULL ){
+        fprintf( stderr, "Failed to open GLFW window. If you have an Intel GPU, they are not 3.3 compatible. Try the 2.1 version of the tutorials.\n" );
+        glfwTerminate();
+        return;
+    }
+    glfwMakeContextCurrent(window); // Initialise GLEW
+    glewExperimental=true; // Nécessaire dans le profil de base
+    if (glewInit() != GLEW_OK) {
+        fprintf(stderr, "Failed to initialize GLEW\n");
+        return;
+    }
+
     while (sfmlWin.isOpen()) {
         std::this_thread::sleep_for(std::chrono::milliseconds((int)std::floor(WINDOW_REFRESH_STEP)));
 
@@ -126,7 +153,7 @@ void runGraphics(RigidBody* back, RigidBody* front) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Q))
         {
             Vector3 force(-localSpaceVelocity.z, 0.0, 0.0);
-            front->applyLocalForceAtCenterOfMass(force * FRONT_MASS);
+            front->applyLocalForceAtCenterOfMass(force * FRONT_MASS * 100);
             
             left_arrow.setFillColor(sf::Color::Red);
         }
@@ -151,7 +178,7 @@ void runGraphics(RigidBody* back, RigidBody* front) {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
         {
             Vector3 force(localSpaceVelocity.z, 0.0, 0.0);
-            front->applyLocalForceAtCenterOfMass(force * FRONT_MASS);
+            front->applyLocalForceAtCenterOfMass(force * FRONT_MASS * 100);
 
             right_arrow.setFillColor(sf::Color::Red);
         }
