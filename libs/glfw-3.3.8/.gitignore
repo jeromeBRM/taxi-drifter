@@ -1,0 +1,7 @@
+#cmake stuff
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles
+Makefile
+
+#build
