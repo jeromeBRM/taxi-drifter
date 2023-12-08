@@ -18,6 +18,7 @@ add_subdirectory(libs/reactphysics3d)
 add_subdirectory(libs/sfml)
 add_subdirectory(libs/glew-2.1.0/build/cmake)
 add_subdirectory(libs/glfw-3.3.8)
+add_subdirectory(libs/glm)
 
 add_executable(TaxiDrifter src/Main.cpp)
 
