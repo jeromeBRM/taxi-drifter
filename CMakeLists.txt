@@ -23,5 +23,5 @@ add_subdirectory(libs/glm)
 add_executable(TaxiDrifter src/Main.cpp)
 
 target_link_options(TaxiDrifter PRIVATE -static-libgcc -static-libstdc++ -static -Bstatic -lstdc++ -lpthread)
-target_link_libraries(TaxiDrifter sfml-graphics sfml-audio reactphysics3d glew glfw)
+target_link_libraries(TaxiDrifter sfml-graphics sfml-audio reactphysics3d glew glfw glm)
 target_include_directories(TaxiDrifter PRIVATE libs/glew-2.1.0/include)
